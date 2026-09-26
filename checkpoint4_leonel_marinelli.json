@@ -1644,7 +1644,7 @@
     },
     {
       "parameters": {
-        "model": "openai/gpt-oss-120b",
+        "model": "openai/gpt-oss-20b",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
@@ -1735,7 +1735,7 @@
     {
       "parameters": {
         "authentication": "oAuth2",
-        "email": "={{ $('Gmail Trigger - Soporte').item.json.From }}",
+        "email": "=marinellileonel@gmail.com",
         "additionalFields": {},
         "options": {}
       },
@@ -1757,7 +1757,7 @@
     {
       "parameters": {
         "authentication": "oAuth2",
-        "email": "={{ $('Gmail Trigger - Soporte').item.json.From }}",
+        "email": "=marinellileonel@gmail.com",
         "additionalFields": {},
         "options": {}
       },
@@ -1783,19 +1783,19 @@
             {
               "id": "91a43d08-66c2-4873-8f4f-98aff0129315",
               "name": "to",
-              "value": "={{ $('4 Set - Limpiar payload Email').first().json.From }}",
+              "value": "={{ $('4 Set - Limpiar playload Email').first().json.From }}",
               "type": "string"
             },
             {
               "id": "45cafa16-ce9b-412a-bf71-d7ceec460422",
               "name": "subject",
-              "value": "={{ \"Re: \" + $(\"4 Set - Limpiar payload Email\").first().json.Subject }}",
+              "value": "={{ \"Re: \" + $('4 Set - Limpiar playload Email').first().json.Subject }}",
               "type": "string"
             },
             {
               "id": "6d0b8f2f-e14a-42d3-9f1e-e48199d4269a",
               "name": "body",
-              "value": "={{ $(\"Normalizar Triage Email\").first().json.draft_body }}",
+              "value": "={{ $('Normalizar Triage Email').first().json.draft_body }}",
               "type": "string"
             }
           ]
@@ -1810,19 +1810,6 @@
       ],
       "id": "632ed26d-2c7d-4509-94e0-f24ee607d9b5",
       "name": "Edit Fields2"
-    },
-    {
-      "parameters": {
-        "jsCode": "const src=$('4 Set - Limpiar playload Email').first().json;\nconst raw=$json.text ?? $json.output ?? $json.response ?? '';\nlet d; try{d=JSON.parse(String(raw).replace(/^```json\\s*/i,'').replace(/```$/,'').trim());}\ncatch(e){d={intent:'UNKNOWN',confidence:0,risk:'HIGH',draft_body:'Requiere revisión humana.'};}\nreturn [{json:{...src,...d}}];\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        3664,
-        848
-      ],
-      "id": "600059b2-19c2-4b75-be16-9050bfd4d049",
-      "name": "Normaliar Triage Email"
     },
     {
       "parameters": {
@@ -1854,7 +1841,7 @@
             {
               "id": "97e2aff2-2efc-4b29-aad7-9589cd056e66",
               "name": "text",
-              "value": "={{ '📩 Nuevo caso procesado\\nCliente: ' + $('4 Set - Limpiar payload Email').first().json.From + '\\nAsunto: ' + $('4 Set - Limpiar payload Email').first().json.Subject + '\\nIntent: ' + $('Normalizar Triage Email').first().json.intent + '\\nEstado: borrador creado para revisión humana' }}",
+              "value": "={{ '📩 Nuevo caso procesado\\nCliente: ' + $('4 Set - Limpiar playload Email').first().json.From + '\\nAsunto: ' + $('4 Set - Limpiar playload Email').first().json.Subject + '\\nIntent: ' + $('Normalizar Triage Email').first().json.intent + '\\nEstado: borrador creado para revisión humana' }}",
               "type": "string"
             }
           ]
@@ -1898,6 +1885,19 @@
           "name": "Slack account 2"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "const src=$('4 Set - Limpiar playload Email').first().json;\nconst raw=$json.text ?? $json.output ?? $json.response ?? '';\nlet d; try{d=JSON.parse(String(raw).replace(/^```json\\s*/i,'').replace(/```$/,'').trim());}\ncatch(e){d={intent:'UNKNOWN',confidence:0,risk:'HIGH',draft_body:'Requiere revisión humana.'};}\nreturn [{json:{...src,...d}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3664,
+        848
+      ],
+      "id": "600059b2-19c2-4b75-be16-9050bfd4d049",
+      "name": "Normalizar Triage Email"
     }
   ],
   "pinData": {},
@@ -2351,7 +2351,7 @@
       "main": [
         [
           {
-            "node": "Normaliar Triage Email",
+            "node": "Normalizar Triage Email",
             "type": "main",
             "index": 0
           }
@@ -2392,17 +2392,6 @@
         [
           {
             "node": "Edit Fields2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Normaliar Triage Email": {
-      "main": [
-        [
-          {
-            "node": "2 - HubSpot - Buscar un contacto de CRM",
             "type": "main",
             "index": 0
           }
@@ -2452,6 +2441,17 @@
           }
         ]
       ]
+    },
+    "Normalizar Triage Email": {
+      "main": [
+        [
+          {
+            "node": "2 - HubSpot - Buscar un contacto de CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -2459,7 +2459,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "78e01b64-9dd5-40ac-bccd-63e372f37649",
+  "versionId": "d8a96795-a196-4501-8683-dc550c64e8dd",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "46b01fdb6bbc820fc1cf6ba0242c74aaf19c0f84865f8bf4a23af54b4ad34ac6"
