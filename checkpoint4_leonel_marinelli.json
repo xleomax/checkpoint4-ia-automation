@@ -1673,7 +1673,7 @@
                 "filterValues": [
                   {
                     "propertyName": "email|string",
-                    "value": "={{ $('Gmail Trigger - Soporte').item.json.From }}"
+                    "value": "={{ $('4 Set - Limpiar playload Email').first().json.From }}"
                   }
                 ]
               }
@@ -1735,7 +1735,7 @@
     {
       "parameters": {
         "authentication": "oAuth2",
-        "email": "=marinellileonel@gmail.com",
+        "email": "={{ $('4 Set - Limpiar playload Email').first().json.From }}",
         "additionalFields": {},
         "options": {}
       },
@@ -1815,7 +1815,7 @@
       "parameters": {
         "resource": "draft",
         "subject": "={{ $('Gmail Trigger - Soporte').item.json.Subject }}",
-        "message": "={{ $('Gmail Trigger - Soporte').item.json.snippet }}",
+        "message": "={{ $('Normalizar Triage Email').first().json.draft_body }}",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -2459,7 +2459,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "d8a96795-a196-4501-8683-dc550c64e8dd",
+  "versionId": "e921dd84-a99d-450a-a540-01c1eb56507c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "46b01fdb6bbc820fc1cf6ba0242c74aaf19c0f84865f8bf4a23af54b4ad34ac6"
